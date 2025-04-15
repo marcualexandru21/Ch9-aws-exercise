@@ -3,12 +3,12 @@
 library identifier: 'jsl-ex-ch8@master', retriever:modernSCM(
 [$class: 'GitSCMSource' ,
 remote: 'https://github.com/marcualexandru21/jsl-ex-ch8.git' ,
-credentialsId: 'github-credentials-ex-ch8-with-token'
+credentialsId: 'github-acc-token-twn'
 ])
 
 env.IMAGE_NAME = "mbradu/ex-ch9-twn:nodejs-app-"
 env.CREDENTIALS_ID_DOCKER_HUB = "dockerhub-credentials-token"
-env.CREDENTIALS_ID_GITHUB = "github-credentials-ex-ch8-with-token"
+env.CREDENTIALS_ID_GITHUB = "github-acc-token-twn"
 env.NAME = "bradu"
 env.EMAIL = "marcualexandru21@gmail.com"
 env.REMOTE_URL = "github.com/marcualexandru21/Ch9-aws-exercise.git"
