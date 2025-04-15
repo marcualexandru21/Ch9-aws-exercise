@@ -11,7 +11,7 @@ env.CREDENTIALS_ID_DOCKER_HUB = "dockerhub-credentials-token"
 env.CREDENTIALS_ID_GITHUB = "github-credentials-ex-ch8-with-token"
 env.NAME = "bradu"
 env.EMAIL = "marcualexandru21@gmail.com"
-env.REMOTE_URL = "https://github.com/marcualexandru21/Ch9-aws-exercise.git"
+env.REMOTE_URL = "github.com/marcualexandru21/Ch9-aws-exercise.git"
 env.PUSH_BRANCH_NAME = "master"
 
 pipeline {
