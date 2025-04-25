@@ -8,10 +8,10 @@ credentialsId: 'github-acc-token-twn'
 
 env.IMAGE_NAME = "mbradu/ex-ch9-twn:nodejs-app-"
 env.CREDENTIALS_ID_DOCKER_HUB = "dockerhub-credentials-token"
-env.CREDENTIALS_ID_GITHUB = "github-acc-token-twn"
-env.NAME = "bradu"
+env.CREDENTIALS_ID_GITHUB = "GitLabPersonalAccessToken"
+env.NAME = "marcualexandru21"
 env.EMAIL = "marcualexandru21@gmail.com"
-env.REMOTE_URL = "github.com/marcualexandru21/Ch9-aws-exercise.git"
+env.REMOTE_URL = "https://gitlab.com/twn6682917/Ch9-aws-exercise"
 env.PUSH_BRANCH_NAME = "master"
 
 pipeline {
@@ -34,6 +34,11 @@ pipeline {
         }
 
         stage("get version and increment version") {
+            when {
+                expression {
+                    return env.GIT_BRANCH == "master"
+                }
+            }
             steps {
                 script {
                    def version = sh(script: 'cd ./app/ && npm pkg get version', returnStdout: true).trim()
@@ -47,7 +52,23 @@ pipeline {
             }
         }
 
+        stage("Run tests") {
+            steps {
+                script {
+                    sh '''
+                         cd ./app/
+                        npm test
+                    '''
+                }
+            }
+        }
+
         stage("Build docker image") {
+            when {
+                expression {
+                    return env.GIT_BRANCH == "master"
+                }
+            }
             steps {
                 script {
                    buildDockerImage "${IMAGE_NAME}"
@@ -56,6 +77,11 @@ pipeline {
         }
 
         stage("Docker hub login") {
+            when {
+                expression {
+                    return env.GIT_BRANCH == "master"
+                }
+            }
             steps {
                 script {
                    dockerHubLogin "${CREDENTIALS_ID_DOCKER_HUB}"
@@ -64,6 +90,11 @@ pipeline {
         }
 
         stage("Push to docker hub") {
+            when {
+                expression {
+                    return env.GIT_BRANCH == "master"
+                }
+            }
             steps {
                 script {
                    dockerPushImage "${IMAGE_NAME}"
@@ -72,6 +103,11 @@ pipeline {
         }
 
         stage("deploy") {
+            when {
+                expression {
+                    return env.GIT_BRANCH == "master"
+                }
+            }
             steps {
                 script {
                     def shellCmd = "bash ./server-cmds.sh ${IMAGE_NAME}"
@@ -86,6 +122,11 @@ pipeline {
         }
 
         stage("Push to Remote URL") {
+            when {
+                expression {
+                    return env.GIT_BRANCH == "master"
+                }
+            }
             steps {
                 script {
                     withCredentials([usernamePassword(credentialsId: "${CREDENTIALS_ID_GITHUB}", passwordVariable: 'PASS', usernameVariable: 'USER')]) {
