@@ -11,7 +11,7 @@ env.CREDENTIALS_ID_DOCKER_HUB = "dockerhub-credentials-token"
 env.CREDENTIALS_ID_GITHUB = "GitLabPersonalAccessToken"
 env.NAME = "marcualexandru21"
 env.EMAIL = "marcualexandru21@gmail.com"
-env.REMOTE_URL = "https://gitlab.com/twn6682917/Ch9-aws-exercise"
+env.REMOTE_URL = "gitlab.com/twn6682917/Ch9-aws-exercise"
 env.PUSH_BRANCH_NAME = "master"
 
 pipeline {
